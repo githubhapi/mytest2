@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!--1.把dao配置导入进来-->
+    <import resource="spring-mybatis.xml"/>
+    <!--2.配置事务-->
+    <!--弄管理员-->
+    <bean id="tm" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="ds"/>
+    </bean>
+    <!--配置事务的注解驱动-顺便开启了注解扫描-输入管理员-->
+    <tx:annotation-driven transaction-manager="tm"/>
+    
+    <!--3.扫描指定包;这个是告诉spring扫描什么包的-->
+    <context:component-scan base-package="com.itheima"/>
+
+</beans>
